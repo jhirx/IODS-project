@@ -11,8 +11,7 @@ Let's read the data in and make sure that gender is converted to factor
 ```{r readdata,echo=TRUE,results='hide',message=FALSE,warning=FALSE}
 setwd("~/IODS-project")
 library(dplyr)
-#learning2014 <- read.csv("d:/yliopisto/IODS-project/data/learning2014.csv") %>%
-learning2014 <- read.csv("~//IODS-project/data/learning2014.csv") %>%
+learning2014 <- read.csv("d:/yliopisto/IODS-project/data/learning2014.csv") %>%
 #learning2014 <- readxl::read_excel("~/IODS-project/data/learning2014.xlsx") %>%
   mutate_at(vars(gender), factor)
 ```

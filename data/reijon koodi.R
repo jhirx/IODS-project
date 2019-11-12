@@ -1,29 +1,28 @@
-# Regression and model validation 
+# Regression and model validation
 
-My try to make same Markdown document
+This week we start the data wrangling, do some exploratory examination of the data
+and fit a simple linear model to the data.
 
 ## Reading data
 
 Code for data creation is available at:   
-  https://github.com/jhirx/IODS-project/blob/master/data/create_learning2014.R
+  https://github.com/rsund/IODS-project/blob/master/data/create_learning2014.R
 
 Let's read the data in and make sure that gender is converted to factor
 ```{r readdata,echo=TRUE,results='hide',message=FALSE,warning=FALSE}
 setwd("~/IODS-project")
 library(dplyr)
-#learning2014 <- read.csv("d:/yliopisto/IODS-project/data/learning2014.csv") %>%
-learning2014 <- read.csv("~//IODS-project/data/learning2014.csv") %>%
-#learning2014 <- readxl::read_excel("~/IODS-project/data/learning2014.xlsx") %>%
+learning2014 <- readxl::read_excel("~/IODS-project/data/learning2014.xlsx") %>%
   mutate_at(vars(gender), factor)
 ```
-how data structure looks like
+As can be seen, the structure looks correct now
 ```{r datastructure}
 str(learning2014)
 ```
 
 ## Exploring data
 
-Here some figures to see how the data looks
+Let's draw some figures to see how the data looks
 ```{r fig1, fig.path="figures/"}
 pairs(learning2014[!names(learning2014) %in% c("gender")],col=learning2014$gender)
 ```
