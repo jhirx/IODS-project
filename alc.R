@@ -4,7 +4,28 @@
 alc <- read.table("~/IODS-project/data/alc.txt", sep=",", header=TRUE)
 str(alc)
 
-m <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+me <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+# print out a summary of the model
+summary(me)
+
+# print out the coefficients of the model
+coef(me)
+
+library(dplyr); library(ggplot2)
+
+# compute odds ratios (OR)
+ORe <- coef(me) %>% exp
+
+# compute confidence intervals (CI)
+CIe <- confint(me) %>% exp
+
+# print out the odds ratios with their confidence intervals
+cbind(ORe, CIe)
+
+#my hypothese
+
+m <- glm(high_use ~ internet + romantic + sex, data = alc, family = "binomial")
 
 # print out a summary of the model
 summary(m)
@@ -12,7 +33,6 @@ summary(m)
 # print out the coefficients of the model
 coef(m)
 
-library(dplyr); library(ggplot2)
 
 # compute odds ratios (OR)
 OR <- coef(m) %>% exp
@@ -23,29 +43,9 @@ CI <- confint(m) %>% exp
 # print out the odds ratios with their confidence intervals
 cbind(OR, CI)
 
-#my hypothese
-
-oma <- glm(high_use ~ internet + romantic + sex, data = alc, family = "binomial")
-
-# print out a summary of the model
-summary(oma)
-
-# print out the coefficients of the model
-coef(oma)
-
-
-# compute odds ratios (OR)
-ORo <- coef(oma) %>% exp
-
-# compute confidence intervals (CI)
-CIo <- confint(oma) %>% exp
-
-# print out the odds ratios with their confidence intervals
-cbind(ORo, CIo)
-
 
 # predict() the probability of high_use
-probabilities <- predict(oma, type = "response")
+probabilities <- predict(m, type = "response")
 
 # add the predicted probabilities to 'alc'
 alc <- mutate(alc, probability = probabilities)
@@ -54,7 +54,7 @@ alc <- mutate(alc, probability = probabilities)
 alc <- mutate(alc, prediction = probability > 0.5)
 
 # see the last ten original classes, predicted probabilities, and class predictions
-select(alc, failures, absences, sex, high_use, probability, prediction) %>% tail(10)
+select(alc, internet, romantic, sex, high_use, probability, prediction) %>% tail(10)
 
 # tabulate the target variable versus the predictions
 table(high_use = alc$high_use, prediction = alc$prediction)
@@ -88,13 +88,13 @@ loss_func(class = alc$high_use, prob = 0)
 
 
 # define a loss function (average prediction error)
-loss_funca <- function(class, prob) {
+loss_func <- function(class, prob) {
   n_wrong <- abs(class - prob) > 0.5
   mean(n_wrong)
 }
 
 # compute the average number of wrong predictions in the (training) data
-loss_funca(class = alc$high_use, prob = alc$probability)
+loss_func(class = alc$high_use, prob = alc$probability)
 
 # K-fold cross-validation
 library(boot)

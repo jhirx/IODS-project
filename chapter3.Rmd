@@ -4,10 +4,10 @@ title: "Logistic regression"
 output: html_document
 ---
 --
-<<<<<<< HEAD
+<<Lests start
 # Logistic regression
 
-My scond try to make same Markdown document
+My second try to make same Markdown document
 
 ## Reading data
 
@@ -76,7 +76,7 @@ alc <- mutate(alc, probability = probabilities)
 alc <- mutate(alc, prediction = probability > 0.5)
 
 # see the last ten original classes, predicted probabilities, and class predictions
-select(alc, failures, absences, sex, high_use, probability, prediction) %>% tail(10)
+select(alc, internet, romantic, sex, high_use, probability, prediction) %>% tail(10)
 
 # tabulate the target variable versus the predictions
 table(high_use = alc$high_use, prediction = alc$prediction)
