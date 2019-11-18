@@ -13,12 +13,17 @@ My second try to make same Markdown document
 
 ##Code for data creation is available at:   
 #  https://github.com/jhirx/IODS-project/blob/master/data/alc.R
+```{r}
+alc <- read.table("~/IODS-project/data/alc.txt", sep=",", header=TRUE)
+library(dplyr); library(ggplot2)
+```
 
 
-#My data high use explaning internet , romatic and sex
+#My data  (alcohol high use to explaning internet , romatic and sex = Gender )
 
 ```{r}
 #my hypothese
+
 
 m <- glm(high_use ~ internet + romantic + sex, data = alc, family = "binomial")
 
