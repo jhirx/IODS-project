@@ -3,14 +3,13 @@ author: Jouni Hirvonen
 title: "Logistic regression"
 output: html_document
 
-### Logistic regression
 
-My second try to make same Markdown document
-
-# Reading data
+# Logistic regression
 
 ##Code for data creation is available at:   
 #  https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R
+
+#reading data in
 ```{r}
 alc <- read.table("~/IODS-project/data/alc_table.csv", sep=",", header=TRUE)
 library(dplyr); library(ggplot2)
