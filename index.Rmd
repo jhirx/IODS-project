@@ -1,7 +1,7 @@
 ---
 title: "IODS course project"
 author: "Jouni Hirvonen"
-output:
+output: iods-project
   html_document:
     theme: cosmo
     toc: true
