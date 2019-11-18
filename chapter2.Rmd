@@ -14,8 +14,8 @@ setwd("~/IODS-project")
 library(dplyr)
 #learning2014 <-read.csv("~/IODS-project/data/learning2014.csv", sep="/t", header=TRUE)
 #learning2014 <- read.csv("d:/yliopisto/IODS-project/data/learning2014.csv") %>%
-#learning2014 <- read.csv("~/IODS-project/data/learning2014.csv") %>%
- #mutate_at(vars(gender), factor)
+learning2014 <- read.csv("~/IODS-project/data/learning2014.csv") %>%
+ mutate_at(vars(gender), factor)
 ```
 
 how data structure looks like
