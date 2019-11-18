@@ -1,0 +1,65 @@
+---
+author: Jouni Hirvonen
+title: "chapter3"
+output: html_document
+---
+--
+<<<<<<< HEAD
+# Logistic regression
+
+My scond try to make same Markdown document
+
+## Reading data
+
+Code for data creation is available at:   
+  https://github.com/jhirx/IODS-project/blob/master/data/alc.R
+
+#Excamble 
+```{r alc <- read.table("~/IODS-project/data/alc.txt", sep=",", header=TRUE)}
+str(alc)
+
+m <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+# print out a summary of the model
+summary(m)
+
+# print out the coefficients of the model
+coef(m)
+
+
+library(dplyr); library(ggplot2)
+
+# compute odds ratios (OR)
+OR <- coef(m) %>% exp
+
+# compute confidence intervals (CI)
+CI <- confint(m) %>% exp
+
+# print out the odds ratios with their confidence intervals
+cbind(OR, CI)
+``` 
+#My data 
+
+```{r}
+#my hypothese
+
+oma <- glm(high_use ~ internet + romantic + sex, data = alc, family = "binomial")
+
+# print out a summary of the model
+summary(oma)
+
+# print out the coefficients of the model
+coef(oma)
+
+
+# compute odds ratios (OR)
+ORo <- coef(oma) %>% exp
+
+# compute confidence intervals (CI)
+CIo <- confint(oma) %>% exp
+
+# print out the odds ratios with their confidence intervals
+cbind(ORo, CIo)
+
+```
+
