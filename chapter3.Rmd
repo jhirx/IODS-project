@@ -2,14 +2,12 @@
 author: Jouni Hirvonen
 title: "Logistic regression"
 output: html_document
----
---
-<<Lests start
-# Logistic regression
+
+### Logistic regression
 
 My second try to make same Markdown document
 
-## Reading data
+# Reading data
 
 ##Code for data creation is available at:   
 #  https://github.com/jhirx/IODS-project/blob/master/data/alc.R
@@ -22,12 +20,12 @@ library(dplyr); library(ggplot2)
 #My data  (alcohol high use to explaning internet , romatic and sex = Gender )
 
 ```{r}
-#my hypothese
+#my hypothese  (alcohol high use to explaning internet , romatic and sex = Gender )
 
 
 m <- glm(high_use ~ internet + romantic + sex, data = alc, family = "binomial")
 
-# print out a summary of the model
+# print out a summary of the model where only sex have some signif 
 summary(m)
 
 # print out the coefficients of the model
@@ -40,11 +38,11 @@ OR <- coef(m) %>% exp
 # compute confidence intervals (CI)
 CI <- confint(m) %>% exp
 
-# print out the odds ratios with their confidence intervals
+# print out the odds ratios with their confidence intervals , where same result only SEX influense alcohol use
 cbind(OR, CI)
 
 ```
-#setting and calculatining probability and prediction (internet, romantic, sex, high_use, probability, prediction)
+##setting and calculatining probability and prediction (internet, romantic, sex, high_use, probability, prediction)
 ```{r}
 
 # predict() the probability of high_use
@@ -57,7 +55,9 @@ alc <- mutate(alc, probability = probabilities)
 alc <- mutate(alc, prediction = probability > 0.5)
 
 # see the last ten original classes, predicted probabilities, and class predictions
+#and we see probability and prediction is LOW
 select(alc, internet, romantic, sex, high_use, probability, prediction) %>% tail(10)
+
 
 # tabulate the target variable versus the predictions
 table(high_use = alc$high_use, prediction = alc$prediction)
@@ -65,12 +65,12 @@ table(high_use = alc$high_use, prediction = alc$prediction)
 # initialize a plot of 'high_use' versus 'probability' in 'alc'
 g <- ggplot(alc, aes(x = probability, y = high_use, col = prediction))
 
-# define the geom as points and draw the plot
+# define the geom as points and draw the plot , tells something??
 g + geom_point()
 
 
 #qplot(internet, romantic, high_use = alc) + geom_smooth(method = "lm")
-# tabulate the target variable versus the predictions
+# tabulate the target variable versus the predictions True und 0.5 so no prediction
 table(high_use = alc$high_use, prediction = alc$prediction) %>% prop.table %>% addmargins
 
 #these my chosen variables have not relationships with alcohol consumption
@@ -82,6 +82,7 @@ loss_func <- function(class, prob) {
 }
 
 # call loss_func to compute the average number of wrong predictions in the (training) data
+# 0,29... tells prediction is right
 loss_func(class = alc$high_use, prob = 0)
 
 ```
@@ -102,7 +103,7 @@ loss_funca <- function(class, prob) {
   mean(n_wrong)
 }
 
-# compute the average number of wrong predictions in the (training) data
+# compute the average number of wrong predictions in the (training) data, and 
 loss_funca(class = alc$high_use, prob = alc$probability)
 
 # K-fold cross-validation
