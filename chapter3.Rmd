@@ -1,6 +1,6 @@
 ---
 author: Jouni Hirvonen
-title: "chapter3"
+title: "Logistic regression"
 output: html_document
 ---
 --
@@ -11,11 +11,12 @@ My scond try to make same Markdown document
 
 ## Reading data
 
-Code for data creation is available at:   
-  https://github.com/jhirx/IODS-project/blob/master/data/alc.R
+##Code for data creation is available at:   
+#  https://github.com/jhirx/IODS-project/blob/master/data/alc.R
 
 #Excamble 
-```{r alc <- read.table("~/IODS-project/data/alc.txt", sep=",", header=TRUE)}
+```{r}
+alc <- read.table("~/IODS-project/data/alc.txt", sep=",", header=TRUE)
 str(alc)
 
 em <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
