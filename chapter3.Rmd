@@ -10,9 +10,9 @@ My second try to make same Markdown document
 # Reading data
 
 ##Code for data creation is available at:   
-#  https://github.com/jhirx/IODS-project/blob/master/data/alc.R
+#  https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R
 ```{r}
-alc <- read.table("~/IODS-project/data/alc.txt", sep=",", header=TRUE)
+alc <- read.table("~/IODS-project/data/alc_table.csv", sep=",", header=TRUE)
 library(dplyr); library(ggplot2)
 ```
 

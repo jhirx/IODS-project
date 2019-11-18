@@ -1,7 +1,7 @@
 
 
 
-alc <- read.table("~/IODS-project/data/alc.txt", sep=",", header=TRUE)
+alc <- read.table("~/IODS-project/data/alc_table.csv", sep=",", header=TRUE)
 str(alc)
 
 me <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
