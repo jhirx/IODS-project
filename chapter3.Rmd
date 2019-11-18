@@ -103,7 +103,7 @@ loss_funca <- function(class, prob) {
   mean(n_wrong)
 }
 
-# compute the average number of wrong predictions in the (training) data, and 
+# compute the average number of wrong predictions in the (training) data, and perdiction
 loss_funca(class = alc$high_use, prob = alc$probability)
 
 # K-fold cross-validation
