@@ -20,15 +20,17 @@
 
 
 #first test
-readtest <- read.csv("d:/yliopisto/IODS-project/data/student-mat.csv",sep=";",header=TRUE)
+# home readtest <- read.csv("d:/yliopisto/IODS-project/data/student-mat.csv",sep=";",header=TRUE)
+readtest <- read.csv("~/IODS-project/data/student-mat.csv",sep=";",header=TRUE)
+
 str(readtest)
 
-readtest2 <- read.csv("d:/yliopisto/IODS-project/data/student-por.csv",sep=";",header=TRUE)
+readtest2 <- read.csv("~/IODS-project/data/student-por.csv",sep=";",header=TRUE)
 str(readtest2)
 
 #readin data in
-math <- read.table("d:/yliopisto/IODS-project/data/student-mat.csv",sep=";",header=TRUE)
-por <- read.table("d:/yliopisto/IODS-project/data/student-por.csv",sep=";",header=TRUE)
+math <- read.table("~/IODS-project/data/student-mat.csv",sep=";",header=TRUE)
+por <- read.table("~/IODS-project/data/student-por.csv",sep=";",header=TRUE)
 
 colnames(math)
 colnames(por)
@@ -110,5 +112,5 @@ glimpse(alc)
 #Observations: 382
 #Variables: 35
 
-write.csv(alc,file="d:/yliopisto/IODS-project/data/alc_table.csv")
+write.csv(alc,file="~/IODS-project/data/alc_table.csv")
 
