@@ -6,17 +6,17 @@ output: html_document
 
 # Logistic regression
 
-##Code for data creation is available at:   
-#  https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R
+Code for data creation is available at:   
+  https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R
 
-#reading data in
+reading data in
 ```{r}
 alc <- read.table("~/IODS-project/data/alc_table.csv", sep=",", header=TRUE)
 library(dplyr); library(ggplot2)
 ```
 
 
-#My data  (alcohol high use to explaning internet , romatic and sex = Gender )
+My data  (alcohol high use to explaning internet , romatic and sex = Gender )
 
 ```{r}
 #my hypothese  (alcohol high use to explaning internet , romatic and sex = Gender )
@@ -41,7 +41,7 @@ CI <- confint(m) %>% exp
 cbind(OR, CI)
 
 ```
-##setting and calculatining probability and prediction (internet, romantic, sex, high_use, probability, prediction)
+setting and calculatining probability and prediction (internet, romantic, sex, high_use, probability, prediction)
 ```{r}
 
 # predict() the probability of high_use
@@ -86,12 +86,12 @@ loss_func(class = alc$high_use, prob = 0)
 
 ```
 
-#Cross-validation is a method of testing a predictive model on unseen data. 
-#In cross-validation, the value of a penalty (loss) function (mean prediction error)
-#is computed on data not used for finding the model. Low value = good.
+Cross-validation is a method of testing a predictive model on unseen data. 
+In cross-validation, the value of a penalty (loss) function (mean prediction error)
+is computed on data not used for finding the model. Low value = good.
 
-#Cross-validation gives a good estimate of the actual predictive power of the model. 
-#It can also be used to compare different models or classification methods.
+Cross-validation gives a good estimate of the actual predictive power of the model. 
+It can also be used to compare different models or classification methods.
 
 
 ```{r}

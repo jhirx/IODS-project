@@ -369,9 +369,9 @@ summary {
 <p>author: Jouni Hirvonen title: “Logistic regression” output: html_document</p>
 <div id="logistic-regression" class="section level1">
 <h1>Logistic regression</h1>
-<p>##Code for data creation is available at:<br />
-# <a href="https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R" class="uri">https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R</a></p>
-<p>#reading data in</p>
+<p>Code for data creation is available at:<br />
+<a href="https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R" class="uri">https://github.com/jhirx/IODS-project/blob/master/data/chapter3.R</a></p>
+<p>reading data in</p>
 <pre class="r"><code>alc &lt;- read.table(&quot;~/IODS-project/data/alc_table.csv&quot;, sep=&quot;,&quot;, header=TRUE)
 library(dplyr); library(ggplot2)</code></pre>
 <pre><code>## 
@@ -382,7 +382,7 @@ library(dplyr); library(ggplot2)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<p>#My data (alcohol high use to explaning internet , romatic and sex = Gender )</p>
+<p>My data (alcohol high use to explaning internet , romatic and sex = Gender )</p>
 <pre class="r"><code>#my hypothese  (alcohol high use to explaning internet , romatic and sex = Gender )
 
 
@@ -432,7 +432,7 @@ cbind(OR, CI)</code></pre>
 ## internetyes 1.1790503 0.6278408 2.3136772
 ## romanticyes 0.8766073 0.5330916 1.4231966
 ## sexM        2.3498778 1.4991438 3.7195784</code></pre>
-<p>##setting and calculatining probability and prediction (internet, romantic, sex, high_use, probability, prediction)</p>
+<p>setting and calculatining probability and prediction (internet, romantic, sex, high_use, probability, prediction)</p>
 <pre class="r"><code># predict() the probability of high_use
 probabilities &lt;- predict(m, type = &quot;response&quot;)
 
@@ -488,8 +488,8 @@ loss_func &lt;- function(class, prob) {
 # 0,29... tells prediction is right
 loss_func(class = alc$high_use, prob = 0)</code></pre>
 <pre><code>## [1] 0.2984293</code></pre>
-<p>#Cross-validation is a method of testing a predictive model on unseen data. #In cross-validation, the value of a penalty (loss) function (mean prediction error) #is computed on data not used for finding the model. Low value = good.</p>
-<p>#Cross-validation gives a good estimate of the actual predictive power of the model. #It can also be used to compare different models or classification methods.</p>
+<p>Cross-validation is a method of testing a predictive model on unseen data. In cross-validation, the value of a penalty (loss) function (mean prediction error) is computed on data not used for finding the model. Low value = good.</p>
+<p>Cross-validation gives a good estimate of the actual predictive power of the model. It can also be used to compare different models or classification methods.</p>
 <pre class="r"><code># define a loss function (average prediction error)
 loss_funca &lt;- function(class, prob) {
   n_wrong &lt;- abs(class - prob) &gt; 0.5
