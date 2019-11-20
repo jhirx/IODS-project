@@ -1,0 +1,248 @@
+# RStudio Exercise 3: Logistic regression
+
+## Data Wrangling
+
+See file `alc.R` in [my GitHub repository](https://github.com/jhirx/IODS-project/tree/master)  
+
+## Data analysis for RStudio Exercise 3
+
+### Install required packages
+
+First, we install the required packages for the analysis: tidyr, ggplot2, GGally, gridExtra (for multiple plots)
+
+ ```{r, results="hide", message=FALSE, warning=FALSE}
+install.packages("tidyr", repos = "http://cloud.r-project.org")
+install.packages("ggplot2", repos = "http://cloud.r-project.org")
+install.packages("GGally", repos = "http://cloud.r-project.org")
+install.packages("gridExtra", repos = "http://cloud.r-project.org")
+ ```
+and make the packages available
+
+ ```{r, results="hide", message=FALSE}
+library(tidyr); library(dplyr); library(ggplot2); library(gridExtra)
+ ```
+
+Read data from data folder:
+
+```{r}
+alc <- read.table("C:/Users/palme/Documents/IODS-project/data/alc.csv", sep=",", header=TRUE)
+```
+
+Glimpse at the alc data
+
+```{r}
+glimpse(alc) 
+```
+
+Dataset information:
+
+This dataset contains measures of student achievement of two Portuguese schools. The data include student grades, demographic, social and school related features as additional variables). The dataset provides average performance in two distinct subjects: mathematics and Portuguese language.
+
+The dataset consists of 35 variables and 382 observations
+
+Variables:
+
+1. school - student's school
+2. sex - student's sex 
+3. age - student's age 
+4. address - urban or rural
+5. famsize - family size 
+6. Pstatus - parent's cohabitation status
+7. Medu - mother's education
+8. Fedu - father's education
+9. Mjob - mother's job
+10. Fjob - father's job
+11. reason - reason to choose this school
+12. guardian - student's guardian 
+13. traveltime - home to school travel time
+14. studytime - weekly study time
+15. failures - number of past class failures
+16. schoolsup - extra educational support
+17. famsup - family educational support
+18. paid - extra paid classes
+19. activities - extra-curricular activities
+20. nursery - attended nursery school
+21. higher - wants to take higher education 
+22. internet - Internet access at home
+23. romantic - with a romantic relationship 
+24. famrel - quality of family relationships
+25. freetime - free time after school
+26. goout - going out with friends
+27. Dalc - workday alcohol consumption 28 Walc - weekend alcohol consumption use
+28.  Walc - weekend alcohol consumption (numeric: from 1 - very low to 5 - very high)
+29. health - health status
+30. absences - number of absences
+31. G1 - first period average grade (math and portuegese)
+32. G2 - second period average grade (math and portuegese)
+33. G3 - final period average grade (math and portuegese)
+34. alc_use' - average of 'Dalc' and 'Walc'
+35. 'high_use' -is TRUE if 'alc_use' is higher than 2 and FALSE otherwise
+
+### Analysis of the causes of high alcohol consumption
+
+First we analyze the data, by drawing a bar plot of each variable
+
+```{r,  message=FALSE, warning=FALSE, fig.width=12, fig.height=10}
+gather(alc) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
+```
+
+#### Main hypothesis
+
+There is quite a lot of variation between respondents' free time and study time, so we use these variables along with age and sex as explanatory variables for alcohol consumption. The main hypothesis is that respondents with a lot of free time also have time to consume alcohol. Moreover, respondents that report many hours of study choose not to consume alcohol, which might decrease their study ability to study. Morever, age might be positively correlated with alcohol consumption, as older respondents drink more than their younger counterparts. Finally, there might be gender differences with respect to alcohol consumption.
+
+We study the relationship between `high_use` and  `studytime`, `age`, `freetime`, `sex` 
+First, we produce summary statistics by group
+
+```{r}
+alc %>% group_by(sex, high_use) %>% summarise(count = n(), mean(studytime), mean(age), mean(freetime))
+```
+
+```{r, include=FALSE}
+summary1 <- alc %>% group_by(sex, high_use) %>% summarise(count = n(), mean(studytime), mean(age), mean(freetime))
+```
+
+
+Graphical illustration of data:
+
+```{r}
+g1 <- ggplot(alc, aes(x = high_use, y = age, col = sex)) #plot high_use and age, separate by sex
+g1 + geom_boxplot() + ggtitle("Age by alcohol consumption and sex") # define the plot as a boxplot and draw it
+```
+
+
+```{r}
+g2 <- ggplot(alc, aes(x = high_use, y = studytime, col = sex)) # plot high_use and freetime by sex
+g2 + geom_boxplot() + ggtitle("Study time by alcohol consumption and sex") # define the plot as a boxplot and draw it
+```
+
+```{r}
+g3 <- ggplot(alc, aes(x = high_use, y = freetime, col = sex)) #plot of high_use and freetime
+g3 + geom_boxplot() + ggtitle("Free time by alcohol consumption and sex") # define the plot as a boxplot and draw it
+```
+
+
+
+Main findings: 
+
+
+- The mean age of males that report high use of alcohol is higher than those males who report low level drinking.
+- The mean age of females that report high use of alcohol is lower than those consume less alcohol, although the mean age for both groups is almost the same.
+- Males and females who report high use of alcohol on average have more free time than those who consume less alcohol.
+- Males and females who  report high use of alchol on average study less than those who consume less alcohol.
+- Higher share of men report high alcohol use than women. (`r format(summary1[4,3]/summary1[3,3], digits=2)` vs `r format(summary1[2,3]/summary1[1,3], digits=2)`)
+
+#### Logistic regression
+
+Run logistic regression with `high_use` as the dependent variable and `studytime`, `age`, `freetime`, `sex` as explanatory variables
+
+
+```{r, message=FALSE}
+m <- glm(high_use ~ age + studytime + freetime + sex, data = alc, family = "binomial")
+```
+
+The summary of the model
+
+```{r, message=FALSE}
+summary(m)
+```
+
+All coefficients are statistically significant at the 5% level, suggesting that the chosen variables explain alcohol consumption.
+
+
+Compute the Odds Ratios (OR)
+
+```{r, message=FALSE}
+OR <- coef(m) %>% exp
+```
+
+and confidence intervals
+```{r, message=FALSE}
+CI <- confint(m) %>% exp
+```
+
+The Odds Ratios and confidence intervals are provided in the table below:
+```{r, message=FALSE}
+cbind(OR, CI)
+```
+
+The odds ratios can be interpreted as the change in the odds of high alcohol use given a one unit increase in the explanatory variable. For example, the regression coefficient for `age` is `r coef(m)[2]`. This indicates that a one unit increase in age increases the odds of being high alcohol use by exp(0.`r coef(m)[2]`)=`r format(exp(coef(m)[2]), digits=2)`) times.
+
+To summarize, the amount of free time, age, and being male increase the odds of high alcohol consumption, whereas the amount of study time decreases the odds of high alcohol use, as hypothesized above.
+
+#### Exploring the predictive power of the model
+
+First make the prediction of the prediction
+
+```{r, message=FALSE}
+probabilities <- predict(m, type = "response") # predict() the probability of high_use
+alc <- mutate(alc, probability = probabilities) # add the predicted probabilities to 'alc'
+alc <- mutate(alc, prediction = probability > 0.5) # use the probabilities to make a prediction of high_use
+```
+
+and check to see the predictions of the last 10 observations
+
+```{r, message=FALSE}
+select(alc, studytime, freetime, age, sex, high_use, probability, prediction) %>% tail(10) # see the last ten original classes, predicted probabilities, and class predictions
+```
+
+#### Predictions vs actual values
+
+```{r, message=FALSE}
+table(high_use = alc$high_use, prediction = alc$prediction)
+```
+
+
+
+```{r, message=FALSE}
+g <- ggplot(alc, aes(x = probability, y = high_use, col = prediction)) # plot 'high_use' versus 'probability' in 'alc'
+g + geom_point() 
+```
+
+
+```{r, message=FALSE}
+# tabulate the target variable versus the predictions
+table(high_use = alc$high_use, prediction = alc$prediction) %>% prop.table %>% addmargins
+#define a loss function (average prediction error)
+  loss_func <- function(class, prob) {
+    n_wrong <- abs(class - prob) > 0.5
+    mean(n_wrong)
+  }
+```
+There is a high number of false negatives, i.e., that the model predicts low alcohol use, wheras the number of false positives is quite low. However, this suggests that the predictive ability of the model is quite low. This could be adjusted by lowering the acceptance probability of the model.
+
+```{r, message=FALSE}
+# call loss_func to compute the average number of wrong predictions in the (training) data
+loss_func(class = alc$high_use, prob = alc$probability)
+# define a loss function (average prediction error)
+loss_func <- function(class, prob) {
+  n_wrong <- abs(class - prob) > 0.5
+  mean(n_wrong)
+}
+```
+
+On average the model makes wrong predictions `r loss_func(class = alc$high_use, prob = alc$probability)` percent of the time, which is better than the average number of wrong predictions given random guess:
+
+```{r, message=FALSE}
+# compute the average number of wrong predictions in the (training) data using random predictions
+loss_func(class = alc$high_use, prob = runif(length(alc$high_use))>0.5)
+```
+
+As the number of predictions goes to infinity, the average share of wrong predictions should be 0.5.
+
+#### Perform K-fold cross-validation
+```{r, message=FALSE}
+library(boot)
+cv <- cv.glm(data = alc, cost = loss_func, glmfit = m, K = 10)
+```
+
+The average number of wrong predictions in the cross validation is `r cv$delta[1]`, which is higher compared to the model in DataCamp. A better model could probably be found using more/other explanatory variables.
+
+Such model can be where `high_use` is explained by`studytime`, `sex`, and `goout`.
+
+```{r}
+m2 <- glm(high_use ~studytime + sex +goout, data = alc, family = "binomial")
+summary(m2)
+cv2 <- cv.glm(data = alc, cost = loss_func, glmfit = m2, K = 10)
+# average number of wrong predictions in the cross validation
+cv2$delta[1]
+```
