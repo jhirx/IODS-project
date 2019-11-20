@@ -1,0 +1,43 @@
+---
+title: "Clustering and classification"
+author: "jouni"
+date: "20 11 2019"
+output: html_document
+### Install required packages
+
+First, we install the required packages for the analysis: tidyr, ggplot2, GGally, gridExtra (for multiple plots)
+
+ ```{r, results="hide", message=FALSE, warning=FALSE}
+install.packages("tidyr", repos = "http://cloud.r-project.org")
+install.packages("ggplot2", repos = "http://cloud.r-project.org")
+install.packages("GGally", repos = "http://cloud.r-project.org")
+install.packages("gridExtra", repos = "http://cloud.r-project.org")
+ ```
+and make the packages available
+
+ ```{r, results="hide", message=FALSE}
+library(tidyr); library(dplyr); library(ggplot2); library(gridExtra)
+ ```
+
+Read data from data :
+  
+
+
+```{r}
+library(MASS)
+
+# load the data
+data("Boston")
+```
+
+
+Glimpse at the boston data
+```{r}
+pairs(Boston)
+glimpse(Boston) 
+```
+
+
+```{r,  message=FALSE, warning=FALSE, fig.width=12, fig.height=10}
+gather(Boston) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
+```

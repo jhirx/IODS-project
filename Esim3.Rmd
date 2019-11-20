@@ -25,7 +25,7 @@ library(tidyr); library(dplyr); library(ggplot2); library(gridExtra)
 Read data from data folder:
 
 ```{r}
-alc <- read.table("C:/Users/palme/Documents/IODS-project/data/alc.csv", sep=",", header=TRUE)
+alc <- read.table("~/IODS-project/data/alc_table.csv", sep=",", header=TRUE)
 ```
 
 Glimpse at the alc data

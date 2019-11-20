@@ -26,9 +26,11 @@ m <- glm(high_use ~ internet + romantic + sex, data = alc, family = "binomial")
 
 # print out a summary of the model where only sex have some signif 
 summary(m)
+#pairs(m)
 
 # print out the coefficients of the model
 coef(m)
+
 
 
 # compute odds ratios (OR)
@@ -83,6 +85,8 @@ loss_func <- function(class, prob) {
 # call loss_func to compute the average number of wrong predictions in the (training) data
 # 0,29... tells prediction is right
 loss_func(class = alc$high_use, prob = 0)
+
+
 
 ```
 
