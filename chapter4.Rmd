@@ -72,3 +72,33 @@ class(boston_scaled)
 boston_scaled <- as.data.frame(boston_scaled)
 ```
 
+Then we create a categorical variable of the crime rate in the Boston dataset (from the scaled crime rate).
+
+```{r}
+# create a quantile vector of crim and print it
+bins <- quantile(boston_scaled$crim)
+```
+
+We use the quantiles as the break points in the categorical variable. 
+
+```{r}
+bins
+```
+
+Next 
+```{r}
+# create a categorical variable 'crime'
+crime <- cut(boston_scaled$crim, breaks = bins, include.lowest = TRUE, labels = c("low", "med_low", "med_high", "high"))
+
+# look at the table of the new factor crime
+table(crime)
+
+```
+
+As asked, drop the old crime rate variable from the dataset. 
+```{r}
+boston_scaled <- dplyr::select(boston_scaled, -crim)
+```
+
+
+Last we divide the dataset to train and test sets, so that 80% of the data belongs to the train set.
