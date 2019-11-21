@@ -28,3 +28,9 @@ output: iods-project
 ```
 
 ***
+
+  
+```{r child = "chapter4.Rmd"}
+```
+
+***
