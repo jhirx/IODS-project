@@ -7,16 +7,18 @@ output: html_document
 
 First, we install the required packages for the analysis: tidyr, ggplot2, GGally, gridExtra (for multiple plots)
 
- ```{r, results="hide", message=FALSE, warning=FALSE}
 install.packages("tidyr", repos = "http://cloud.r-project.org")
 install.packages("ggplot2", repos = "http://cloud.r-project.org")
 install.packages("GGally", repos = "http://cloud.r-project.org")
 install.packages("gridExtra", repos = "http://cloud.r-project.org")
- ```
+
 and make the packages available
 
  ```{r, results="hide", message=FALSE}
-library(tidyr); library(dplyr); library(ggplot2); library(gridExtra)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
 ```
 
 
@@ -96,23 +98,15 @@ table(crime)
 ```
 
 As asked, drop the old crime rate variable from the dataset. 
-```{r}
-boston_scaled <- dplyr::select(boston_scaled, -crim)
-```
-
+choose randomly 80% of the rows and then we create sets Train and test
 Last we divide the dataset to train and test sets, so that 80% of the data belongs to the train set.
 number of rows in the Boston dataset 
 ```{r}
-n <- nrow(boston_scaled)
-```
+boston_scaled <- dplyr::select(boston_scaled, -crim)
 
-choose randomly 80% of the rows
-```{r}
+
 ind <- sample(n,  size = n * 0.8)
-```
 
-Then we create sets Train and test
-```{r}
 # create train set
 train <- boston_scaled[ind,]
 
@@ -127,4 +121,8 @@ test <- dplyr::select(test, -crime)
 
 ```
 
+Fit the linear discriminant analysis on the train set. Use the categorical crime rate as the target variable and all the other variables in the dataset as predictor variables. Draw the LDA (bi)plot. 
 
+
+
+Save the crime categories from the test set and then remove the categorical crime variable from the test dataset. Then predict the classes with the LDA model on the test data. Cross tabulate the results with the crime categories from the test set. Comment on the results.
