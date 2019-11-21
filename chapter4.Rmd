@@ -100,5 +100,31 @@ As asked, drop the old crime rate variable from the dataset.
 boston_scaled <- dplyr::select(boston_scaled, -crim)
 ```
 
-
 Last we divide the dataset to train and test sets, so that 80% of the data belongs to the train set.
+number of rows in the Boston dataset 
+```{r}
+n <- nrow(boston_scaled)
+```
+
+choose randomly 80% of the rows
+```{r}
+ind <- sample(n,  size = n * 0.8)
+```
+
+Then we create sets Train and test
+```{r}
+# create train set
+train <- boston_scaled[ind,]
+
+# create test set 
+test <- boston_scaled[-ind,]
+
+# save the correct classes from test data
+correct_classes <- test$crime
+
+# remove the crime variable from test data
+test <- dplyr::select(test, -crime)
+
+```
+
+
