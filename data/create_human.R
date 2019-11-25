@@ -31,6 +31,16 @@ dim(hd_gii)
 colnames(hd_gii)
 
 
+colnames(hd_gii)[colnames(hd_gii)=="Human.Development.Index..HDI."] <- "HDI.index"
+colnames(hd_gii)[colnames(hd_gii)=="Life.Expectancy.at.Birth"] <- "Life.expect"
+colnames(hd_gii)[colnames(hd_gii)=="Expected.Years.of.Education"] <- "Exp.yrs.Edu"
+colnames(hd_gii)[colnames(hd_gii)=="Mean.Years.of.Education"] <- "Mean.yrs.Edu"
+colnames(hd_gii)[colnames(hd_gii)=="Gross.National.Income..GNI..per.Capita"] <- "Grs.Nat.income.Cap"
+colnames(hd_gii)[colnames(hd_gii)=="GNI.per.Capita.Rank.Minus.HDI.Rank"] <- "GNi.minus.HDI"
+ 
+
+#hd_gii2 <- hd_gii %>% mutate(HDI=Human.Development.Index..HDI.)
+
 
 human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human1.txt", sep  =",", header = T)
 
