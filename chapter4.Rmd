@@ -1,3 +1,4 @@
+# RStudio Exercise 4: Clustering and classification
 ---
 title: "Clustering and classification"
 author: "jouni hirvonen"
@@ -7,8 +8,6 @@ output: html_document
 
 First, we install the required packages for the analysis: tidyr, ggplot2, GGally, gridExtra (for multiple plots)
 
-
-
 install.packages("tidyr")
 install.packages("ggplot2")
 install.packages("GGally")
@@ -17,7 +16,8 @@ install.packages("plotly")
 
 and make the packages available
 
- ```{r, results="hide", message=FALSE}
+```{r}
+
 
 library(tidyr)
 library(dplyr)
@@ -32,8 +32,6 @@ library(MASS)
 Read data from data :
 
 ```{r}
-library(MASS)
-
 # load the data
 data("Boston")
 str(Boston)
@@ -205,7 +203,7 @@ k_max <- 10
 twcss <- sapply(1:k_max, function(k){kmeans(Boston, k)$tot.withinss})
 
 ```
-in plot we can see we need only 2 clusters 
+in plot we can see, we need only 2 clusters 
 
 ```{r}
 
@@ -222,3 +220,42 @@ km <-kmeans(Boston, centers = 2)
 pairs(Boston, col = km$cluster)
 
 ```
+
+```{r}
+
+set.seed(123)
+
+# determine the number of clusters
+k_max <- 10
+
+# calculate the total within sum of squares
+twcss <- sapply(1:k_max, function(k){kmeans(Boston, k)$tot.withinss})
+
+# visualize the results
+qplot(x = 1:k_max, y = twcss, geom = 'line')
+
+# in plot we can see we need only 2 clusters 
+
+# k-means clustering
+km <-kmeans(Boston, centers = 2)
+
+# plot the Boston dataset with clusters
+pairs(Boston, col = km$cluster)
+```
+
+#Extra
+```{r}
+model_predictors <- dplyr::select(train, -crime)
+
+# check the dimensions
+dim(model_predictors)
+dim(lda.fit$scaling)
+
+# matrix multiplication
+matrix_product <- as.matrix(model_predictors) %*% lda.fit$scaling
+matrix_product <- as.data.frame(matrix_product)
+
+
+plot_ly(x = matrix_product$LD1, y = matrix_product$LD2, z = matrix_product$LD3, type= 'scatter3d', mode='markers')
+```
+
