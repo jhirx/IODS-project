@@ -27,7 +27,7 @@ print(nrow(hd_gii))
 
 
 str(hd_gii)
-dim(hd_gii)
+
 colnames(hd_gii)
 
 #Change collumn names
@@ -46,9 +46,16 @@ colnames(hd_gii)[colnames(hd_gii)=="Population.with.Secondary.Education..Male."]
 colnames(hd_gii)[colnames(hd_gii)=="Labour.Force.Participation.Rate..Female."] <- "Labo.F"
 colnames(hd_gii)[colnames(hd_gii)=="Labour.Force.Participation.Rate..Male."] <- "Labo.M"
 
-#hd_gii2 <- hd_gii %>% mutate(HDI=Human.Development.Index..HDI.)
 
+#Mutate the “Gender inequality” data and create two new variables. 
+#The first one should be the ratio of Female and Male populations with secondary education in each country. 
+#(i.e. edu2F / edu2M). The second new variable should be the ratio of labour force participation of females and males in each country
+#(i.e. labF / labM).
 hd_gii <- mutate(hd_gii, Edu2.FM = Edu2.F/Edu2.M)
 hd_gii <- mutate(hd_gii, Labo.FM = Labo.F/Labo.M)
 
-write.csv(hd_gii,file="~/IODS-project/data/hd_gii_table.csv")
+
+dim(hd_gii)
+#195 observations and 19 variables.
+
+write.csv(hd_gii,file="~/IODS-project/data/human.csv")
