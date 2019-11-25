@@ -30,7 +30,7 @@ str(hd_gii)
 dim(hd_gii)
 colnames(hd_gii)
 
-
+#Change collumn names
 colnames(hd_gii)[colnames(hd_gii)=="Human.Development.Index..HDI."] <- "HDI.index"
 colnames(hd_gii)[colnames(hd_gii)=="Life.Expectancy.at.Birth"] <- "Life.expect"
 colnames(hd_gii)[colnames(hd_gii)=="Expected.Years.of.Education"] <- "Exp.yrs.Edu"
@@ -48,16 +48,7 @@ colnames(hd_gii)[colnames(hd_gii)=="Labour.Force.Participation.Rate..Male."] <- 
 
 #hd_gii2 <- hd_gii %>% mutate(HDI=Human.Development.Index..HDI.)
 
+hd_gii <- mutate(hd_gii, Edu2.FM = Edu2.F/Edu2.M)
+hd_gii <- mutate(hd_gii, Labo.FM = Labo.F/Labo.M)
 
-
-
-human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human1.txt", sep  =",", header = T)
-
-# look at the (column) names of human
-names(human)
-
-# look at the structure of human
-str(human)
-
-# print out summaries of the variables
-summary(human)
+write.csv(hd_gii,file="~/IODS-project/data/hd_gii_table.csv")
