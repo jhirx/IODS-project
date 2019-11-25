@@ -203,7 +203,8 @@ k_max <- 10
 twcss <- sapply(1:k_max, function(k){kmeans(Boston, k)$tot.withinss})
 
 ```
-in plot we can see, we need only 2 clusters 
+In plot we can see, we need only 2 or 3 clusters 
+I choose 2
 
 ```{r}
 
@@ -221,27 +222,6 @@ pairs(Boston, col = km$cluster)
 
 ```
 
-```{r}
-
-set.seed(123)
-
-# determine the number of clusters
-k_max <- 10
-
-# calculate the total within sum of squares
-twcss <- sapply(1:k_max, function(k){kmeans(Boston, k)$tot.withinss})
-
-# visualize the results
-qplot(x = 1:k_max, y = twcss, geom = 'line')
-
-# in plot we can see we need only 2 clusters 
-
-# k-means clustering
-km <-kmeans(Boston, centers = 2)
-
-# plot the Boston dataset with clusters
-pairs(Boston, col = km$cluster)
-```
 
 #Extra
 ```{r}
