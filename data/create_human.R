@@ -37,9 +37,18 @@ colnames(hd_gii)[colnames(hd_gii)=="Expected.Years.of.Education"] <- "Exp.yrs.Ed
 colnames(hd_gii)[colnames(hd_gii)=="Mean.Years.of.Education"] <- "Mean.yrs.Edu"
 colnames(hd_gii)[colnames(hd_gii)=="Gross.National.Income..GNI..per.Capita"] <- "Grs.Nat.income.Cap"
 colnames(hd_gii)[colnames(hd_gii)=="GNI.per.Capita.Rank.Minus.HDI.Rank"] <- "GNi.minus.HDI"
- 
+colnames(hd_gii)[colnames(hd_gii)=="Gender.Inequality.Index..GII."] <- "GII"
+colnames(hd_gii)[colnames(hd_gii)=="Maternal.Mortality.Ratio"] <- "Mat.Mor"
+colnames(hd_gii)[colnames(hd_gii)=="Adolescent.Birth.Rate"] <- "Ado.Birth"
+colnames(hd_gii)[colnames(hd_gii)=="Percent.Representation.in.Parliament" ] <- "Parli.F"
+colnames(hd_gii)[colnames(hd_gii)=="Population.with.Secondary.Education..Female."] <- "Edu2.F"
+colnames(hd_gii)[colnames(hd_gii)=="Population.with.Secondary.Education..Male."] <- "Edu2.M" 
+colnames(hd_gii)[colnames(hd_gii)=="Labour.Force.Participation.Rate..Female."] <- "Labo.F"
+colnames(hd_gii)[colnames(hd_gii)=="Labour.Force.Participation.Rate..Male."] <- "Labo.M"
 
 #hd_gii2 <- hd_gii %>% mutate(HDI=Human.Development.Index..HDI.)
+
+
 
 
 human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human1.txt", sep  =",", header = T)
