@@ -35,3 +35,9 @@ output: iods-project
 ```
 
 ***
+
+
+```{r child = "chapter5.Rmd"}
+```
+
+***
