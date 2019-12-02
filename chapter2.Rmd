@@ -13,8 +13,8 @@ Let's read the data in and make sure that gender is converted to factor
 setwd("~/IODS-project")
 library(dplyr)
 #learning2014 <-read.csv("~/IODS-project/data/learning2014.csv", sep="/t", header=TRUE)
-#learning2014 <- read.csv("d:/yliopisto/IODS-project/data/learning2014.csv") %>%
-learning2014 <- read.csv("~/IODS-project/data/learning2014.csv") %>%
+learning2014 <- read.csv("d:/yliopisto/IODS-project/data/learning2014.csv") %>%
+#learning2014 <- read.csv("~/IODS-project/data/learning2014.csv") %>%
  mutate_at(vars(gender), factor)
 ```
 
