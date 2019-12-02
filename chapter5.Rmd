@@ -115,31 +115,36 @@ pca_human_std <- prcomp(human_std)
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
 summary(pca_human_std)
 ```
-Using the standardized data, we can see that now the first five principal components explain 92% of the variation in the data, whereas the first principal component explained most of the variation in the non-standardized data.
+Standardized data we can see first five principal components explain 92% of the variation in the data.
+standardized data, large values of the GNI expalin most result
 
-This can be largely explained by the the large values of the GNI that are driving the results, whereas this is avoided by using the standardized data.
-
-This can be seen clearly in the figure below:
 
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
-# draw a biplot of the principal component representation and the original variables
+# draw a biplot
 biplot(pca_human_std, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
 ```
 
-We can see that gross national income (`GNI`), female participation in secondary education (`Edu2.Ratio`),  expected years of education (`Edu.Exp`) and life expectancy (`Life.Exp`) have large negative weights on the first principal component (PC1), whereas maternal mortality (`Mat.Mor`) and  adolescent birth rate (`Ado.Birth`) have positive weights on PC1. 
+Positive weights gross national income (`GNI`) are
+maternal mortality (Mat.Mor) and  adolescent birth rate (Ado.Birth)
+and negative
+secondary education (Edu2.Ratio),
+expected years of education (Edu.Exp) 
+and life expectancy (Life.Exp) 
 
-Moreover, female participation in the labor force relative to men (`LFP.Ratio`) and participation in the parliamenet (`Parli.F`) have positive weights on PC2.
+
 
 ### Interpretation of principal components  
-The above suggests that PC1 seems to explain economic differences between countries, given that variables associated with economic development, such as gross national income and health have the largest weights on PC1. 
+Money talks and it seems to explain result
 
-PC2 may be interpreted as a measure of gender inequality, because it is largely driven by female participation in the parliament and relative labor force participation.
+
 
 ### Tea dataset from FactoMineR
 
-Install package `FactoMineR`, load dataset `tea`. The data is on a questionnaire on tea consumption, product perception and personal details.
 
-First, explore that data:
+5.Load the tea dataset from the package Factominer. Explore the data briefly: look at the structure and the dimensions of the data and visualize it. Then do Multiple Correspondence Analysis on the tea data (or to a certain columns of the data, it’s up to you). Interpret the results of the MCA and draw at least the variable biplot of the analysis. You can also explore other plotting options for MCA. Comment on the output of the plots.
+
+Install package `FactoMineR`, load dataset `tea`.
+explore that data:
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 install.packages('FactoMineR', repos = "http://cloud.r-project.org")
@@ -183,21 +188,11 @@ summary(mca)
 plot(mca, invisible=c("ind"), habillage = "quali")
 ```
 
-The above figure shows the association between the different categories. Unpackaged tea is consumed in a tea shop, whereas bagged tea is purchased from a chain store. Earl gray tea is more likely to be consumed with milk and black tea with lemon and green tea is consumed alone. 
+Unpackaged tea is consumed in a tea shop
+bagged tea is purchased from a chain store. 
+Earl gray tea is more likely to be consumed with milk
+and black tea with lemon and green tea is consumed alone. 
 
-Dimension 1 and Dimension 2 explain 18,4 % and 17,1% of the variation, respectively. The summary of the model shows that first four dimensions explain roughly 60 percent of the variation in the model.
 
-    © 2019 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Help
 
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
 
