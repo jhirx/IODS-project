@@ -156,3 +156,12 @@ str(tea)
 ```
 
 The data includes 300 observations of 36 variables.
+
+
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
+# visualize the dataset
+library(tidyr)
+gather(tea) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
+```
+
