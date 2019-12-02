@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Data wrangling
 
-See file `create_human.R` in [my GitHub repository](https://github.com/jhirx/IODS-project/tree/master/data)  
+See file `create_human.R` in (https://github.com/jhirx/IODS-project/tree/master/data)  
 
 
 
@@ -26,7 +26,7 @@ First, load the data
 ##human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt", sep  =",", header = T)
 human = read.table("data/human2.txt", header=TRUE, sep=",")
 ```
-Access library `GGally`, `corrplot` to be used in the analysis
+Access library `GGally`, `corrplot`  and  dplyr to be used in the analysis
 
 ```{r, warning=FALSE, results='hide'}
 #install.packages("corrplot")
@@ -37,38 +37,51 @@ library(GGally)
 library(corrplot)
 library(dplyr)
 ```
+1. Show a graphical overview of the data and show summaries of the variables in the data. Describe and interpret the outputs, commenting on the distributions of the variables and the relationships between them
 
-Next we summarize the data
+first we summarizing the data
 ```{r, warning=FALSE}
 summary(human)
 ```
-We can see that lowest life expectancy (`Life.Exp`) is 49 years and the highest is 83.5. The data also shows that the share of female participants in parliament (`Parli.F`) varies between countries, ranging from 0 to 57.5 %. On average, females obtain less education than males (`Edu2.Ratio`) and particpate less in the labor force (`LFP.Ratio`)
+Lowest life expectancy (Life.Exp) is 49 years and the highest is 83.5. 
+Females obtain less education than males (Edu2.Ratio) and particpate less in the labor force (LFP.Ratio)
 
 
 ### Data visualization
 
-Next, we visualize the data
+Then, visualize the data
 
 ```{r, message=FALSE, warning=FALSE, fig.width=14, fig.height=18}
 # visualize the 'human' variables
 ggpairs(human)
 ```
 
-The female-to-male secondary education ratio and labor force participation ratio have a lot of weight on the right tail of the distribution, which suggests that female participation in secondary education and the labor force is high in the sample. Moreover, most countries in the sample are poor, given that the GNI is skewed to the left.
+Most countries in the sample are poor, given that the GNI is to the left.
 
-Looking in more detail at the correlations in the figure below, we can see some expected relationships. 
+Next more detail at the correlations. 
 
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
 # compute the correlation matrix and visualize it with corrplot
 cor(human) %>% corrplot
 ```
-Maternal mortality (`Mat.Mor`) and adolescent fertility rate (`Ado.Birth`) are negatively correlated with relative education of female to male (`Edu2.Ratio`) and gross national income (`GNI`). `GNI` is positively correlated with female education `Edu2.Ratio` and life expectancy (`Life.Exp`) and expected education (`Edu.Exp`).
+Negatively correlated are
+Maternal mortality (Mat.Mor) and 
+adolescent fertility rate (Ado.Birth)  
+to male (`Edu2.Ratio`) 
+
+Positively correlated are
+gross national income (GNI) 
+to female education (Edu2.Ratio)
+and life expectancy (Life.Exp)
+and expected education (Edu.Exp).
 
 
 
 ### Principal components analysis (non-standardized data)
 
-Next we perform principal components analysis (PCA) on the data.
+2. Perform principal component analysis (PCA) on the not standardized human data. Show the variability captured by the principal components. Draw a biplot displaying the observations by the first two principal components (PC1 coordinate in x-axis, PC2 coordinate in y-axis), along with arrows representing the original variables.
+
+Principal components analysis (PCA) on the not standardized human data.
 
 ```{r, message=FALSE, warning=FALSE}
 # perform principal component analysis
@@ -76,15 +89,18 @@ pca_human <- prcomp(human)
 summary(pca_human)
 ```
 
-The above table shows that the first principal component (PC1) explains 99% of the variation in the data, suggesting that the data can be summarized in single dimension.
+First principal component (PC1) explains 99% of the variation in the data.
 
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
 biplot(pca_human, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
 ```
 
-The biplot shows that the first principal component explain much of the cross-country variation, which is largely driven by gross national income (`GNI`).
+The biplot shows that the first principal component explain much of the cross-country variation, which is largely driven by gross national income (GNI).
+
 
 ### Principle components analysis (standardized data)
+3. Standardize the variables in the human data and repeat the above analysis. Interpret the results of both analysis (with and without standardizing). Are the results different? Why or why not? Include captions (brief descriptions) in your plots where you describe the results by using not just your variable names, but the actual phenomenons they relate to.
+
 
 ```{r, message=FALSE, warning=FALSE}
 # perform principal component analysis (with the SVD method)
