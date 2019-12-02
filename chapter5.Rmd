@@ -81,7 +81,7 @@ and expected education (Edu.Exp).
 
 2. Perform principal component analysis (PCA) on the not standardized human data. Show the variability captured by the principal components. Draw a biplot displaying the observations by the first two principal components (PC1 coordinate in x-axis, PC2 coordinate in y-axis), along with arrows representing the original variables.
 
-Next we perform principal components analysis (PCA) on the data.
+Principal components analysis (PCA) on the not standardized human data.
 
 ```{r, message=FALSE, warning=FALSE}
 # perform principal component analysis
@@ -89,16 +89,17 @@ pca_human <- prcomp(human)
 summary(pca_human)
 ```
 
-The above table shows that the first principal component (PC1) explains 99% of the variation in the data, suggesting that the data can be summarized in single dimension.
+First principal component (PC1) explains 99% of the variation in the data.
 
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
 biplot(pca_human, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
 ```
 
-The biplot shows that the first principal component explain much of the cross-country variation, which is largely driven by gross national income (`GNI`).
+The biplot shows that the first principal component explain much of the cross-country variation, which is largely driven by gross national income (GNI).
+
 
 ### Principle components analysis (standardized data)
-
+3. Standardize the variables in the human data and repeat the above analysis. Interpret the results of both analysis (with and without standardizing). Are the results different? Why or why not? Include captions (brief descriptions) in your plots where you describe the results by using not just your variable names, but the actual phenomenons they relate to.
 
 
 ```{r, message=FALSE, warning=FALSE}
