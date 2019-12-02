@@ -23,8 +23,8 @@ See file `create_human.R` in (https://github.com/jhirx/IODS-project/tree/master/
 First, load the data
 
 ```{r, warning=FALSE, results='hide'}
-##human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt", sep  =",", header = T)
-human = read.table("data/human2.txt", header=TRUE, sep=",")
+human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt", sep  =",", header = T)
+##human = read.table("d:/yliopisto/iods-project/data/human2.txt", header=TRUE, sep=",")
 ```
 Access library `GGally`, `corrplot`  and  dplyr to be used in the analysis
 
@@ -45,7 +45,6 @@ summary(human)
 ```
 Lowest life expectancy (Life.Exp) is 49 years and the highest is 83.5. 
 Females obtain less education than males (Edu2.Ratio) and particpate less in the labor force (LFP.Ratio)
-
 
 ### Data visualization
 
@@ -147,7 +146,7 @@ Install package `FactoMineR`, load dataset `tea`.
 explore that data:
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-install.packages('FactoMineR', repos = "http://cloud.r-project.org")
+#install.packages('FactoMineR', repos = "http://cloud.r-project.org")
 library(FactoMineR)
 data(tea)
 ```
