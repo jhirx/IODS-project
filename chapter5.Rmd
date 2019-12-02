@@ -139,7 +139,6 @@ Money talks and it seems to explain result
 
 ### Tea dataset from FactoMineR
 
-
 5.Load the tea dataset from the package Factominer. Explore the data briefly: look at the structure and the dimensions of the data and visualize it. Then do Multiple Correspondence Analysis on the tea data (or to a certain columns of the data, it’s up to you). Interpret the results of the MCA and draw at least the variable biplot of the analysis. You can also explore other plotting options for MCA. Comment on the output of the plots.
 
 Install package `FactoMineR`, load dataset `tea`.
@@ -157,41 +156,3 @@ str(tea)
 ```
 
 The data includes 300 observations of 36 variables.
-
-
-```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
-# visualize the dataset
-library(tidyr)
-gather(tea) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
-```
-
-Next we select the variables of interest: `Tea`, `How`, `how`, `where`, `price`, `age`, and `lunch`
-
-```{r, message=FALSE, warning=FALSE}
-# column names to keep in the dataset
-keep_columns <- c("Tea", "How", "how", "where")
-# select the 'keep_columns' to create a new dataset
-tea_vars <- select(tea, one_of(keep_columns))
-head(tea_vars)
- ```
-
-```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
-# multiple correspondence analysis
-mca <- MCA(tea_vars, graph = FALSE)
-# summary of the model
-summary(mca)
-```
-
-```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
-# visualize MCA
-plot(mca, invisible=c("ind"), habillage = "quali")
-```
-
-Unpackaged tea is consumed in a tea shop
-bagged tea is purchased from a chain store. 
-Earl gray tea is more likely to be consumed with milk
-and black tea with lemon and green tea is consumed alone. 
-
-
-
-
