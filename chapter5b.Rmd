@@ -23,7 +23,6 @@ See file `create_human.R` in (https://github.com/jhirx/IODS-project/tree/master/
 First, load the data
 
 ```{r, warning=FALSE, results='hide'}
-#setwd("D:/yliopisto/iods-project")
 human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt", sep  =",", header = T)
 ##human = read.table("d:/yliopisto/iods-project/data/human2.txt", header=TRUE, sep=",")
 ```
@@ -163,8 +162,6 @@ The data includes 300 observations of 36 variables.
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=12}
 # visualize the dataset
 library(tidyr)
-library(ggplot2)
-
 gather(tea) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
 ```
 

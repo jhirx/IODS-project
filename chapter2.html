@@ -372,7 +372,7 @@ summary {
 <p>Code for data creation is available at:<br />
 <a href="https://github.com/jhirx/IODS-project/blob/master/data/create_learning2014.R" class="uri">https://github.com/jhirx/IODS-project/blob/master/data/create_learning2014.R</a></p>
 <p>Let’s read the data in and make sure that gender is converted to factor</p>
-<pre class="r"><code>setwd(&quot;~/IODS-project&quot;)
+<pre class="r"><code>##setwd(&quot;~/IODS-project&quot;)
 library(dplyr)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
@@ -383,8 +383,8 @@ library(dplyr)</code></pre>
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>#learning2014 &lt;-read.csv(&quot;~/IODS-project/data/learning2014.csv&quot;, sep=&quot;/t&quot;, header=TRUE)
-#learning2014 &lt;- read.csv(&quot;d:/yliopisto/IODS-project/data/learning2014.csv&quot;) %&gt;%
-learning2014 &lt;- read.csv(&quot;~/IODS-project/data/learning2014.csv&quot;) %&gt;%
+learning2014 &lt;- read.csv(&quot;d:/yliopisto/IODS-project/data/learning2014.csv&quot;) %&gt;%
+#learning2014 &lt;- read.csv(&quot;~/IODS-project/data/learning2014.csv&quot;) %&gt;%
  mutate_at(vars(gender), factor)</code></pre>
 <p>how data structure looks like</p>
 <pre class="r"><code>str(learning2014)</code></pre>

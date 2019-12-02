@@ -10,7 +10,7 @@ Code for data creation is available at:
 
 Let's read the data in and make sure that gender is converted to factor
 ```{r}
-setwd("~/IODS-project")
+##setwd("~/IODS-project")
 library(dplyr)
 #learning2014 <-read.csv("~/IODS-project/data/learning2014.csv", sep="/t", header=TRUE)
 learning2014 <- read.csv("d:/yliopisto/IODS-project/data/learning2014.csv") %>%
