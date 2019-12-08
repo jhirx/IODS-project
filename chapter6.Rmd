@@ -184,7 +184,8 @@ The figure confirms that there are significant differences between the means of 
 We cannot use a t-test two test more than two samples, so ANOVA (Analysis of Variance) is used test a hypothesis when dealing with two or more groups. One-way ANOVA can be considered an extension of the t-test when at least three groups are tested. 
 
 ```{r, echo=FALSE}
-RATS <- read.table("data/RATS.txt", header=TRUE)
+RATS <-  read.table("https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/rats.txt", sep  ="\t", header = T)
+#RATS <- read.table("data/RATS.txt", header=TRUE)
 # Add the baseline from the original data as a new variable to the summary data
 RATSL111 <- RATSL1 %>%
   mutate(baseline = RATS$WD1)
@@ -205,7 +206,10 @@ In the `BPRS` data  subjects were randomly assigned to one of two treatment grou
 First we load the longitudinal data
 
 ```{r}
-BPRSL <- read.table("data/BPRSL.txt", header=TRUE)
+
+BPRSL <-read.table("data/BPRSL.txt", header=TRUE)
+#BPRSL <- read.table("D:\yliopisto\IODS-project\data\BPRSL.txt", header=TRUE)
+#BPRSL <- read.table("data/BPRSL.txt", header=TRUE)
 ```
 
 and check the structure:
@@ -219,14 +223,15 @@ We need to change categorical values to factors in BPRSL data
 ```{r}
 BPRSL$treatment <- as.factor(BPRSL$treatment)
 BPRSL$subject <- as.factor(BPRSL$subject)
-BPRSL$Week <- as.numeric(BPRSL$Week) 
+#BPRSL$Week <- as.numeric(BPRSL$Week) 
 BPRSL$bprs <- as.numeric(BPRSL$bprs)
 ```
 
 We can look at the differences between Wide form data and long form data. The original wide form data defines a variable for each observation period
 
 ```{r, echo=FALSE}
-BPRS <- read.table("data/BPRS.txt", header=TRUE) #read original BPRS data
+BPRS <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/BPRS.txt", sep  =" ", header = T)
+#BPRS <- read.table("data/BPRS.txt", header=TRUE) #read original BPRS data
 arrange(filter(BPRS,treatment==1 & subject==c(1,2)), subject)
 ```
 
