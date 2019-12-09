@@ -8,13 +8,13 @@ output: html_document
 
 ## Data Wrangling
 
-See file `meet_and_repeat.R` in [my GitHub repository](https://github.com/jhirx/IODS-project/tree/master/data)  
+See file meet_and_repeat.R in [my GitHub repository](https://github.com/jhirx/IODS-project/tree/master/data)  
 
 
 ## start of analysis
 
 
-Read the `RATS` data in long form:
+Read the RATS data in long form:
 
 ```{r, echo=FALSE, warning=FALSE}
 RATSL <- read.table("data/RATSL.txt", header=TRUE)
@@ -34,9 +34,9 @@ RATSL$ID <- as.factor(RATSL$ID)
 RATSL$Group <- as.factor(RATSL$Group)
 ```
 
-### Graphic displays of `RATS` data
+### Graphic displays of Rats data
 
-We begin with a graphical display of `RATS` data by plotting the points
+We begin with a graphical display of RATS data by plotting the points
 for each subject to show the weight development of individual rats.
 
 
